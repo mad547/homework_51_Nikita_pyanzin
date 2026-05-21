@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кот - {{ cat.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="card">
+        <img src="{% static avatar %}" alt="кот" class="cat-avatar">
+        <h2>Кот - {{ cat.name }}</h2>
+        <p class="text-muted">Возраст - {{ cat.age }} год</p>
+
+        {% if cat.is_sleeping %}
+            <span class="sleeping-badge">Спит</span>
+        {% endif %}
+
+        <div class="text-start mb-2">
+            <div class="d-flex justify-content-between">
+                <span class="stat-label">Уровень счастья</span>
+                <span class="stat-label">{{ cat.happiness }}/100</span>
+            </div>
+            <div class="progress">
+                <div class="bar-happiness" style="width: {{ cat.happiness }}%"></div>
+            </div>
+        </div>
+
+        <div class="text-start mb-3">
+            <div class="d-flex justify-content-between">
+                <span class="stat-label">Уровень сытости</span>
+                <span class="stat-label">{{ cat.satiety }}/100</span>
+            </div>
+            <div class="progress">
+                <div class="bar-satiety" style="width: {{ cat.satiety }}%"></div>
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <select name="action">
+                <option value="">Выберите действие</option>
+                <option value="feed">Покормить кота</option>
+                <option value="play">Поиграть с котом</option>
+                <option value="sleep">Уложить спать кота</option>
+            </select>
+            <button type="submit" class="btn-main">Подтвердить</button>
+        </form>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
