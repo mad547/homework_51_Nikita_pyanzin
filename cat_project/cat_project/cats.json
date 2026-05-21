@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Tom",
+    "age": 2,
+    "hp": 94,
+    "mood": 25,
+    "satiety": 82,
+    "average_level": 67,
+    "is_sleeping": false
+  }
+]

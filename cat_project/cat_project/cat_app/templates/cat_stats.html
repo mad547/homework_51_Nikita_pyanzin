@@ -17,27 +17,43 @@
             <span class="sleeping-badge">Спит</span>
         {% endif %}
 
+        {% if message %}
+            <div class="alert alert-info mt-2">{{ message }}</div>
+        {% endif %}
+
         <div class="text-start mb-2">
             <div class="d-flex justify-content-between">
-                <span class="stat-label">Уровень счастья</span>
-                <span class="stat-label">{{ cat.happiness }}/100</span>
+                <span class="stat-label">Здоровье</span>
+                <span class="stat-label">{{ cat.hp }}/100</span>
             </div>
             <div class="progress">
-                <div class="bar-happiness" style="width: {{ cat.happiness }}%"></div>
+                <div class="bar-happiness" style="width: {{ cat.hp }}%"></div>
             </div>
         </div>
 
-        <div class="text-start mb-3">
+        <div class="text-start mb-2">
             <div class="d-flex justify-content-between">
-                <span class="stat-label">Уровень сытости</span>
+                <span class="stat-label">Настроение</span>
+                <span class="stat-label">{{ cat.mood }}/100</span>
+            </div>
+            <div class="progress">
+                <div class="bar-happiness" style="width: {{ cat.mood }}%"></div>
+            </div>
+        </div>
+
+        <div class="text-start mb-2">
+            <div class="d-flex justify-content-between">
+                <span class="stat-label">Сытость</span>
                 <span class="stat-label">{{ cat.satiety }}/100</span>
             </div>
             <div class="progress">
-                <div class="bar-satiety" style="width: {{ cat.satiety }}%"></div>
+                <div class="bar-happiness" style="width: {{ cat.satiety }}%"></div>
             </div>
         </div>
 
-        <form method="post">
+        <p class="text-muted mb-2">Средний уровень: {{ cat.average_level }}</p>
+
+        <form method="post" action="{% url 'cat_stats' cat_index %}">
             {% csrf_token %}
             <select name="action">
                 <option value="">Выберите действие</option>
@@ -47,6 +63,9 @@
             </select>
             <button type="submit" class="btn-main">Подтвердить</button>
         </form>
+        <a href="{% url 'cats_list' %}" class="btn-main" style="display:block; text-decoration: none; margin-top:10px;">
+            К списку котов
+        </a>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
